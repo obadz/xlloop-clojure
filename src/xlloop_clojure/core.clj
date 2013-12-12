@@ -1,6 +1,16 @@
-(ns xlloop-clojure.core)
+(ns xlloop-clojure.core
+  (:require [xlloop.funs]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defn start-server []
+  (let [fs   (org.boris.xlloop.FunctionServer.)
+        rfh  (org.boris.xlloop.reflect.ReflectFunctionHandler.)
+        firh (org.boris.xlloop.handler.FunctionInformationHandler.)
+        cfh  (org.boris.xlloop.handler.CompositeFunctionHandler.)]
+    (.addMethods rfh "Math."    java.lang.Math)
+    (.addMethods rfh "Test."    (xlloop.funs.)) ; Use an object instance rather than the class because the methods aren't static
+    (.add firh (.getFunctions rfh))
+    (.add cfh rfh)
+    (.add cfh firh)
+    (.setFunctionHandler fs (org.boris.xlloop.handler.DebugFunctionHandler. cfh))
+    (println "Listening on port "  (.getPort fs))
+    (.run fs)))
