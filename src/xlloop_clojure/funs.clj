@@ -1,6 +1,6 @@
 (ns xlloop-clojure.funs
   (:gen-class
-    :name xlloop.funs
+    :name xlloop_clojure.funs
     :methods [[myTest  [] String]
               [myAdder [Number Number] Number]]))
 

@@ -7,5 +7,6 @@
                            ; installed with the help of http://www.elangocheran.com/blog/2013/03/installing-jar-files-locally-for-leiningen-2/
                            ; mvn install:install-file -Durl=file:repo -DgroupId=local -DartifactId=xlloop -Dversion=0.3.2 -Dpackaging=jar -Dfile=xlloop-0.3.2.jar
                            [local/xlloop "0.3.2"]]
-            :aot [xlloop-clojure.funs]
+            :aot :all
+            :main xlloop_clojure.core
             :repositories {"project" "file:repo"})
